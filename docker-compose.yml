@@ -1,0 +1,36 @@
+version: "3.8"
+services:
+  userservice:
+    build:
+      context: ./UserService
+      dockerfile: Dockerfile
+    ports:
+      - 85:80
+    volumes:
+      - ./UserService:/var/www/html
+  postservice:
+    build:
+      context: ./PostService
+      dockerfile: Dockerfile
+    ports:
+      - 86:80
+    volumes:
+      - ./PostService:/var/www/html
+  db:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    volumes:
+      - my-datavolume:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+
+  phpmyadmin:
+    image: phpmyadmin
+    restart: always
+    ports:
+      - 8080:80
+    environment:
+      - PMA_ARBITRARY=1
+volumes:
+  my-datavolume:
