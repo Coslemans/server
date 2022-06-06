@@ -15,7 +15,7 @@ class TokenManager
     {
         $issuedat_claim = time();
         $notbefore_claim = $issuedat_claim + 10;
-        $expire_claim = $issuedat_claim + 600;
+        $expire_claim = $issuedat_claim + 6000;
         $token = array(
 
             "iss" => self::$issuer_claim,
